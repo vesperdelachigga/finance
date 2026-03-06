@@ -4,6 +4,53 @@ This file contains 12 institutional-grade financial analysis frameworks.
 Each section is a complete template. Replace bracketed placeholders with
 real data gathered via web search and user input.
 
+## 常用术语解释
+
+- **NTM (Next Twelve Months)**: 未来12个月财务预测
+- **LTM (Last Twelve Months)**: 过去12个月实际数据
+- **EV/EBITDA**: 企业价值倍数（企业价值/息税折旧摊销前利润）
+- **FCF**: 自由现金流（Free Cash Flow）
+- **WACC**: 加权平均资本成本（Weighted Average Cost of Capital）
+- **DCF**: 折现现金流（Discounted Cash Flow）
+- **CAGR**: 复合年增长率（Compound Annual Growth Rate）
+- **ROE**: 净资产收益率（Return on Equity）
+- **MOIC**: 现金-on-cash倍数（Multiple on Invested Capital）
+- **IRR**: 内部收益率（Internal Rate of Return）
+- **EBITDA**: 息税折旧摊销前利润
+- **LBO**: 杠杆收购（Leveraged Buyout）
+- **SOTP**: 分部估值法（Sum-of-the-Parts）
+- **Comps**: 可比公司分析（Comparable Company Analysis）
+
+## 风险提示
+
+1. **数据时效性风险**: 财务数据可能已过时，需验证最新财报
+2. **假设敏感性风险**: 小幅假设变动可能导致估值大幅变化
+3. **行业差异风险**: 不同行业适用不同的估值倍数标准
+4. **市场条件风险**: 宏观经济环境影响估值结果
+5. **模型局限性**: 模型假设可能不适用于所有情况
+
+## 使用示例
+
+### 示例1: DCF估值
+用户问: "腾讯控股值多少钱？"
+触发条件: 询问公司价值/估值
+框架选择: #1 (DCF) + #5 (Comps)
+执行步骤:
+1. 读取 prompts.md 的 DCF 模板部分
+2. 获取腾讯最新财务数据
+3. 建立模型并计算
+4. 输出专业估值报告
+
+### 示例2: 股票比较
+用户问: "茅台和五粮液哪个更好？"
+触发条件: 比较两只股票
+框架选择: #5 (Comps)
+执行步骤:
+1. 收集两家公司最近3年数据
+2. 计算关键指标对比
+3. 分析差异
+4. 给出结论
+
 ## Table of Contents
 
 1. [DCF Valuation Model](#1-dcf-valuation-model)
@@ -44,7 +91,31 @@ real data gathered via web search and user input.
 - **Valuation range:** Bull case, base case, bear case with clear
   assumptions for each.
 
-**Format:** Investment banking pitch-book valuation page with clear formulas.
+**Format:**
+- **Primary output**: Markdown formatted analysis with tables and clear formulas
+- **Data file**: `DCF_projections.csv` containing all calculations and projections
+- **Visual elements**: ASCII sensitivity tables and scenario comparisons
+- **Formulas**: Provided in code blocks for Excel replication
+
+**Example structure:**
+```
+# DCF Valuation Analysis
+
+## Summary Tables
+| Metric | Value | Source |
+|--------|-------|--------|
+| WACC | 10.5% | Market data |
+| Terminal Value | $1,000M | Perpetuity growth |
+| Implied Share Price | $50 | Base case |
+
+## Detailed Calculations
+[CSV file available: DCF_projections.csv]
+
+## 风险提示
+- 数据基于2024年财报，需验证2025年最新数据
+- 终端增长率假设为3%，±1%变动导致估值±15%变化
+- WACC计算基于CAPM模型，beta值敏感性高
+```
 
 ---
 
@@ -73,7 +144,27 @@ real data gathered via web search and user input.
 - **Error checks:** Balance sheet balances (A = L + E), cash flow ties to
   balance sheet, no circular references without iteration.
 
-**Format:** Excel-style model with formulas explained in plain English.
+**Format:**
+- **Primary output**: Excel-style model in Markdown format with formulas explained
+- **Data file**: `Three_Statements_Model.csv` containing all projections
+- **Formulas**: Plain English explanations with code block examples
+- **Linkages**: Diagram showing how statements connect
+
+**Example:**
+```
+# Income Statement (Year 1-5)
+
+| Item | Year 1 | Year 2 | ... | Formula |
+|------|--------|--------|-----|--------|
+| Revenue | $100M | $110M | | Prev × 1.1 |
+| COGS | $60M | $66M | | Revenue × 0.6 |
+
+## 风险提示
+- 模型假设收入增长率为10%，实际可能波动
+- 营运资本模型基于行业平均DSO/DIO/DPO
+- 需验证实际财务数据与模型假设的一致性
+```
+```
 
 ---
 
@@ -102,7 +193,34 @@ real data gathered via web search and user input.
 - **Sensitivity table:** EPS accretion/dilution at different purchase prices
   and synergy levels.
 
-**Format:** M&A analysis memo with deal recommendation.
+**Format:**
+- **Primary output**: M&A analysis memo in Markdown format
+- **Data file**: `Accretion_Dilution_Analysis.csv` with detailed calculations
+- **Visuals**: Combined income statement comparison table
+- **Recommendation**: Clear buy/sell/hold recommendation with rationale
+
+**Example structure:**
+```
+# M&A Accretion/Dilution Analysis
+
+## Deal Summary
+| Metric | Value |
+|--------|-------|
+| Purchase Price | $50/share |
+| Premium | 25% |
+| Synergies | $200M/year |
+
+## EPS Impact
+- Acquirer standalone: $2.00
+- Pro forma: $2.15
+- Accretion: $0.15 (7.5%)
+
+## 风险提示
+- 协同效应实现时间假设为2年，提前或延迟影响EPS
+- 融资成本基于当前利率，利率变动影响债务成本
+- 模型假设交易立即完成，实际整合时间可能影响结果
+```
+```
 
 ---
 
@@ -131,7 +249,28 @@ real data gathered via web search and user input.
 - **Management assumptions:** Revenue CAGR, EBITDA margin trajectory,
   capex as % of revenue, working capital changes.
 
-**Format:** Private equity investment committee memo with returns analysis.
+**Format:**
+- **Primary output**: PE investment committee memo in Markdown
+- **Data file**: `LBO_Model_Analysis.csv` with cash flow and returns
+- **Returns table**: IRR and MOIC for each exit scenario
+- **Visuals**: Cash flow sweep schedule and debt paydown timeline
+
+**Example:**
+```
+# LBO Returns Analysis
+
+| Exit Year | IRR | MOIC | EV Multiple |
+|-----------|-----|------|-------------|
+| Year 3 | 18% | 1.8x | 8x |
+| Year 4 | 25% | 2.2x | 9x |
+| Year 5 | 30% | 2.5x | 10x |
+
+## 风险提示
+- 退出倍数假设基于行业平均，实际可能波动
+- 利率变动影响债务成本和IRR计算
+- 经营假设敏感性高，收入增长±5%影响IRR±8%
+```
+```
 
 ---
 
@@ -158,7 +297,29 @@ real data gathered via web search and user input.
   peer median.
 - **Quality screen:** Rank peers by comparability. Flag the 5 closest comps.
 
-**Format:** Comparable company valuation table with multiples highlighted.
+**Format:**
+- **Primary output**: Trading comps analysis with peer comparison tables
+- **Data file**: `Comparable_Companies_Analysis.csv` with all peer data
+- **Valuation ranges**: Percentile distribution table for each multiple
+- **Premium/discount**: Clear justification for target's premium/discount
+
+**Example:**
+```
+# Peer Multiples Analysis
+
+| Company | EV/Rev | EV/EBITDA | P/E |
+|---------|--------|-----------|-----|
+| Target | 2.5x | 15x | 25x |
+| Peer A | 2.2x | 12x | 20x |
+| Peer B | 2.8x | 18x | 30x |
+| Median | 2.5x | 15x | 25x |
+
+## 风险提示
+- 可比公司选择基于行业和规模，可能存在差异
+- 市场情绪影响倍数波动
+- 财务数据基于不同会计准则，需调整可比性
+```
+```
 
 ---
 
@@ -184,7 +345,29 @@ real data gathered via web search and user input.
 - **Implied valuation:** Apply 25th/median/75th deal multiples to the target
   company's financials.
 
-**Format:** M&A valuation analysis with transaction comparables table.
+**Format:**
+- **Primary output**: Precedent transaction analysis with deal summaries
+- **Data file**: `Precedent_Transactions_Analysis.csv` with all deal data
+- **Multiple ranges**: EV/EBITDA and EV/Revenue distribution analysis
+- **Market conditions**: Timeline showing deal activity and pricing trends
+
+**Example:**
+```
+# Transaction Multiples Analysis
+
+| Deal Date | Buyer | Seller | EV/EBITDA | Premium |
+|-----------|-------|--------|-----------|---------|
+| 2024-Q1 | Corp A | Target X | 12x | 30% |
+| 2024-Q2 | Corp B | Target Y | 15x | 25% |
+| 2024-Q3 | Corp C | Target Z | 18x | 40% |
+| Median | | | 15x | 30% |
+
+## 风险提示
+- 交易背景差异（战略vs财务买家）影响倍数可比性
+- 市场条件变化影响交易价格
+- 控制溢价可能不适用于所有交易场景
+```
+```
 
 ---
 
@@ -210,7 +393,30 @@ real data gathered via web search and user input.
 - **First-day pop expectation:** Typical underpricing in the sector based on
   recent IPO data.
 
-**Format:** IPO pricing memo with share price recommendation range.
+**Format:**
+- **Primary output**: IPO pricing memo with valuation analysis
+- **Data file**: `IPO_Pricing_Analysis.csv` with comps and valuation ranges
+- **Price range**: Low/mid/high share price with implied multiples
+- **Float analysis**: Ownership structure and dilution impact
+
+**Example:**
+```
+# IPO Pricing Analysis
+
+| Price Range | EV/Revenue | EV/EBITDA | P/E |
+|-------------|------------|-----------|-----|
+| Low: $15 | 3x | 20x | 18x |
+| Mid: $20 | 4x | 25x | 24x |
+| High: $25 | 5x | 30x | 30x |
+
+**Recommended Range: $18-22**
+
+## 风险提示
+- 首日表现受市场情绪影响，可能偏离估值
+- 稀释效应需考虑ESOP池和现有股东
+- 定价基于可比IPO，实际可能因市场条件调整
+```
+```
 
 ---
 
@@ -239,6 +445,11 @@ real data gathered via web search and user input.
 
 **Format:** Credit memo with debt capacity recommendation.
 
+## 风险提示
+- 信用评级变化影响债务成本
+- 行业标准可能随时间变化
+- 模型假设基于当前市场条件
+
 ---
 
 ## 9. Sum-of-the-Parts (SOTP) Valuation
@@ -265,6 +476,11 @@ real data gathered via web search and user input.
   Compare to current trading price to find discount/premium.
 
 **Format:** Restructuring analysis with breakup valuation scenarios.
+
+## 风险提示
+- 分部估值假设各业务独立运营
+- 协同效应可能被低估或高估
+- 市场对分拆的估值可能不同于整体
 
 ---
 
@@ -296,6 +512,11 @@ real data gathered via web search and user input.
 
 **Format:** Operating model with monthly projections for year 1, quarterly
 for years 2–3.
+
+## 风险提示
+- 用户获取成本和生命周期价值假设敏感性高
+- 规模效应可能延迟实现
+- 市场竞争影响增长假设
 
 ---
 
@@ -329,6 +550,11 @@ for years 2–3.
 
 **Format:** Risk analysis memo with sensitivity tables and scenario outcomes.
 
+## 风险提示
+- 情景分析基于历史数据，未来可能不同
+- 变量相关性可能影响结果
+- 极端情景概率难以准确估计
+
 ---
 
 ## 12. Investment Committee Memo
@@ -360,3 +586,8 @@ for years 2–3.
   invest, state the maximum price / terms acceptable.
 
 **Format:** Investment committee presentation deck outline.
+
+## 风险提示
+- 投资决策基于多种假设，实际结果可能不同
+- 市场条件变化影响投资回报
+- 模型假设需定期更新和验证
