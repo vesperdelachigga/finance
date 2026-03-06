@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "Bash(pip3 list)",
+      "Bash(python3:*)",
+      "Bash(pip3 install akshare)",
+      "Bash(python3.10 --version)",
+      "Bash(python3.10 -c \"import akshare; print\\(f''AkShare version: {akshare.__version__}''\\)\")",
+      "Bash(python3.10:*)",
+      "Bash(git add .)",
+      "Bash(git commit -m \"Initial commit: Add Wall Street Analyst project with DCF valuation templates and stock analysis reports for Shuanghui and China CDF\")"
+    ]
+  }
+}
